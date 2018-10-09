@@ -12,14 +12,16 @@ function N()
 
 	$args       = func_get_args();
 	$html       = [];
-	$closeTag   = NULL;
+	$closeTag  	= NULL;
 
 	if(!is_array($args[0]))
 	{
-		$tag    = array_shift($args);
-		$attrs  = (is_array($args[0]) && !is_string($args[0][0]) && !is_array($args[0][0])) ? array_shift($args) : NULL;
+		$tag    	= array_shift($args);
+		$attrs  	= (is_array($args[0]) && !is_string($args[0][0]) && !is_array($args[0][0])) ? array_shift($args) : [];
 
-		$tag    = trim($tag);
+		$tag		= trim($tag);
+		$id			= NULL;
+		$classNames	= NULL;
 
 		// If is HTML
 		if(preg_match('/^<([a-z0-9:_-]+)/i', $tag, $m))
@@ -37,12 +39,12 @@ function N()
 
 			if($m[2])
 			{
-				$tagHTML .= ' id="' . $m[2] . '"';
+				$id = $m[2];
 			}
 
 			if($m[3])
 			{
-				$tagHTML .= ' class="' . str_replace('.', ' ', $m[3]) . '"';
+				$classNames = trim(str_replace('.', ' ', $m[3]));
 			}
 
 			if($m[4])
@@ -52,23 +54,40 @@ function N()
 		}
 
 		$tag    = mb_strtolower($tag);
+
+		if($id && !$attrs['id'])
+		{
+			$attrs['id'] = $id;
+		}
+
+		if($classNames)
+		{
+			$attrs['class'] = $attrs['class'] ? $classNames . ' ' . $attrs['class'] : $classNames;
+		}
 		
 		// Apply attributes
-		if($attrs)
+		if(is_array($attrs))
 		{
-			if(is_array($attrs))
+			foreach($attrs as $k => $v)
 			{
-				foreach($attrs as $k => $v)
+				if($v === TRUE)
 				{
-					if($v === TRUE)
-					{
-						$v = $k;
-					}
+					$v = $k;
+				}
 
-					if(is_string($v) || is_numeric($v))
+				if(!is_string($v) && !is_numeric($v) && substr($k, 0, 5) == 'data-')
+				{
+					$v = json_encode($v);
+
+					if($v !== FALSE)
 					{
-						$tagHTML .= " {$k}=" . (FALSE !== strpos($v, '"') ? "'{$v}'" : "\"{$v}\"");
+						$v = htmlspecialchars($v);
 					}
+				}
+
+				if(is_string($v) || is_numeric($v))
+				{
+					$tagHTML .= " {$k}=" . (FALSE !== strpos($v, '"') ? "'{$v}'" : "\"{$v}\"");
 				}
 			}
 		}
@@ -87,6 +106,10 @@ function N()
 			switch(gettype($el))
 			{
 				case 'string':
+
+					$childs[] = htmlspecialchars($el, ENT_HTML5, "UTF-8", FALSE);
+
+				break;
 				case 'integer':
 				case 'double':
 

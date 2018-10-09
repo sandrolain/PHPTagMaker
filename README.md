@@ -2,14 +2,17 @@
 
 Function to construct HTML strings using Array structures
 
+## Live Example
 
-## ToDO
+[Live Example](https://www.sandrolain.com/PHPTagMaker/examples.php)
+
+## ToDo
 
 - [ ] Docs
-- [ ] Determine if classnames are defined either as an abbreviation or as an attribute list
+- [x] Determine if classnames are defined either as an abbreviation or as an attribute list
 - [ ] Determine if content text is escaped or not
-- [ ] Non-string "data-*" attributes as JSON
-
+- [x] Non-string "data-\*" attributes as JSON
+- [x] Live Example
 
 ## License
 
