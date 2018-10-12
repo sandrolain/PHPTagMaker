@@ -107,7 +107,8 @@ function N()
 			{
 				case 'string':
 
-					$childs[] = htmlspecialchars($el, ENT_HTML5, "UTF-8", FALSE);
+					//$childs[] = htmlspecialchars($el, ENT_HTML5, "UTF-8", FALSE);
+					$childs[] = $el;
 
 				break;
 				case 'integer':

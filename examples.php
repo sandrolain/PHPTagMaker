@@ -10,11 +10,12 @@ $data = ['div#my-id',
 			'data-json'		=> ['one' => 1, 'two' => 2, 'three' => 3],
 			'class'			=> "class-3"
 		],
-		'Text string ', ['b', 'Bold text'], 'Escaped &amp; ?',
-		'<div></div>',
-		['<i>', 'test'],
-		['br'],
-		['img', ['src' => 'https://dummyimage.com/640x200/000/fff.png']]
+		'Text string ', ['br'], ['b', 'Bold text'], '<br/>', '&amp;scaped string',
+		['<div id="test-id">',
+			['<i>', 'Italic text'],
+			['br'],
+			['img', ['src' => 'https://dummyimage.com/640x200/000/fff.png']]
+		]
 	]
 ];
 
