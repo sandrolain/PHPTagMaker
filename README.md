@@ -8,10 +8,14 @@ Function to construct HTML strings using Array structures
 
 ## ToDo
 
-- [ ] Docs
 - [x] Determine if classnames are defined either as an abbreviation or as an attribute list
 - [x] Non-string "data-\*" attributes as JSON
-- [x] Live Example
+- [x] Autoload
+- [ ] Quicker element instance use
+- [x] CSS Maker
+- [ ] Updated Live Example
+- [ ] Code phpdoc
+- [ ] Docs
 
 ## License
 
